@@ -3,3 +3,65 @@
     padding: 0;
     box-sizing: 0;
 }
+
+.container {
+    border: 1px solid black;
+    height: 800px; /* auto */
+}
+
+.row {
+    border: 1px solid red;
+}
+
+.col-6 {
+    border: 1px solid blue;
+}
+
+.col-12 {
+    border: 1px solid blue;
+}
+
+/* GRIGLIA GENERALE */
+.games_grid{
+    border: 1px solid black;
+    width: 500px;
+    height: 500px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: flex-start;
+}
+
+/* SINGOLE CELLE */
+.single_cell{
+    border: 1px solid black;
+    width: calc(100% / 10);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+/* DIMENSIONI CELLE IN BASE AL LIVELLO DI DIFFICOLTA'*/
+.cell_easy{
+    width: calc(100% / 10);
+    height: calc(100% / 10);
+}
+.cell_hard{
+    width: calc(100% / 9);
+    height: calc(100% / 9);
+}
+.cell_crazy{
+    width: calc(100% / 7);
+    height: calc(100% / 7);
+}
+
+/* .hidden{
+    display: none;
+} */
+
+/* .red-bomb {
+    background-color: red;
+    color: #fff;
+} */
+
