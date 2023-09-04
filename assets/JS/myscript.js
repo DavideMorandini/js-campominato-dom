@@ -88,4 +88,109 @@ function playGame() {
         mainGrid.appendChild(newGeneratedCell);
     }
     
+ 
+ // Click sulla cella scelta
+ function cellsClick() {
+        
+    let clickNumber = parseInt(this.querySelector("span").textContent);
+    console.log("Hai cliccato su:" + "" + clickNumber);
+
+    // Se il numero scelto è una bomba (cioè è nella lista degli array)
+    if (bombComeArray.includes(clickNumber)) {
+        
+        // La cella si colora di rosso
+        this.classList.add("red-bomb")
+        endGame("perdita");
+      
+    } else {
+       
+        // La cella diventa azzura
+        this.classList.add("active");
+
+        this.style.pointerEvents = "none";
+
+        rightAttemps.push(clickNumber);
+
+        if (rightAttemps.lenght >= maxAttemps) {
+            endGame("vittoria");
+        }
+    }
+}
+
+// Funzione per decidere se l'utente ha vinto o perso
+function endGame(result) {
+    //  Dichiaro/creo una variabile per il messaggio finale che annuncia il risultato
+    let resultMessage;
+
+    if (result == "vittoria") {
+        
+        resultMessage = "Hai vinto!"
+
+    } else {
+      
+        resultMessage = "Hai perso! Hai effettuato " + rightAttemps.length + "tentativi";
+    }
+
+    // Messaggio che annuncia la fine del gioco
+    let endGameText = document.getElementById("endgame");
+    console.log("result" + endGameText);
+
+    // Riversa in pagina il risultato
+    endGameText.innerHTML = resultMessage;
    
+    // Per mostrare il messaggio finale tolgo l'hidden
+    endGameText.classList.remove("hidden");
+
+    let allCells = document.getElementsByClassName("singlecell");
+
+    // Per poter riniziare il gioco
+    for ( let i = 0; i < allCells.lenght; i++) {
+        let thisCell = allCells[i];
+        thisCell.style.pointerEvents = "none";
+    }
+}
+}
+
+// Funzione per generare un array che contenga 16 numeri/bombe randomiche
+function generateBombComeArray (maxNumber, maxBombNumber) {
+
+let bombGenerateArray = [];
+
+console.log(bombGenerateArray.length, maxBombNumber)
+
+while (bombGenerateArray.length < maxBombNumber) {
+    let bombNumberRandom = getRandomNumber(1, maxNumber);
+    console.log(bombNumberRandom)
+
+    // SE bombGenerateArray NON include una bomba, CONTINUA
+    if (!bombGenerateArray.includes(bombNumberRandom)) {
+        
+        bombGenerateArray.push(bombNumberRandom);
+    }
+}
+return bombGenerateArray;
+}
+
+// Funzione per creare gli elementi all'interno della griglia e dimensioni celle
+function generateCellsItem(number, cellDimention) {
+
+// Per generare un il contenitore div della griglia
+let newCell = document.createElement("div");
+
+newCell.classList.add("singlecell");
+
+newCell.innerHTML = `<span>${number}</span>`; 
+
+let dimensione = `calc(100% / ${cellDimention})`
+newCell.style.width = dimensione;
+newCell.style.height = dimensione;
+
+return newCell;
+}
+
+// Funzione per generare un numero randomico
+function getRandomNumber(min, max) {
+return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+
